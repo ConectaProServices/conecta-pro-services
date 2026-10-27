@@ -5,6 +5,7 @@ import { SCHEDULING_REPOSITORY } from "../repositories/scheduling.repository.int
 import { SchedulingStatus } from "../../../enum/scheduling-status.enum.js";
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { SchedulingAlreadyConfirmedException } from '../../../exceptions/scheduling-already-confirmed.exception.js';
+import { SERVICE_CATALOG } from "../ports/service-catalog.interface.js";
 
 const SCHEDULE_ID = '1';
 
@@ -25,6 +26,10 @@ describe('SchedulingService', () => {
                 {
                     provide: SCHEDULING_REPOSITORY,
                     useValue: schedulingRepositoryMock,
+                },
+                {
+                    provide: SERVICE_CATALOG,
+                    useValue: { findById: vi.fn() },
                 },
             ],
         }).compile();
