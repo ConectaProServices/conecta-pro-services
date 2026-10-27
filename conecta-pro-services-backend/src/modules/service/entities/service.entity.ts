@@ -1,5 +1,5 @@
-import { SchedulingStatus } from "../../../enum/scheduling-status.enum.js";
-import { SchedulingAlreadyConfirmedException } from "../../../exceptions/scheduling-already-confirmed.exception.js";
+import { SchedulingStatus } from "../../../common/enum/scheduling-status.enum.js";
+import { SchedulingAlreadyConfirmedException } from "../../../common/exceptions/scheduling-already-confirmed.exception.js";
 
 export class Scheduling {
     private status: SchedulingStatus;

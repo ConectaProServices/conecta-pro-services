@@ -4,10 +4,10 @@ import { SchedulingService } from './scheduling.service.js';
 import { SCHEDULING_REPOSITORY } from '../repositories/scheduling.repository.interface.js';
 import { SERVICE_CATALOG } from '../ports/service-catalog.interface.js';
 import { Scheduling } from '../entities/scheduling.entity.js';
-import { SchedulingStatus } from '../../../enum/scheduling-status.enum.js';
-import { SchedulingTooSoonException } from '../../../exceptions/scheduling-too-soon.exception.js';
-import { SchedulingConflictException } from '../../../exceptions/scheduling-conflict.exception.js';
-import { CatalogServiceNotFoundException } from '../../../exceptions/catalog-service-not-found.exception.js';
+import { SchedulingStatus } from '../../../common/enum/scheduling-status.enum.js';
+import { SchedulingTooSoonException } from '../../../common/exceptions/scheduling-too-soon.exception.js';
+import { SchedulingConflictException } from '../../../common/exceptions/scheduling-conflict.exception.js';
+import { CatalogServiceNotFoundException } from '../../../common/exceptions/catalog-service-not-found.exception.js';
 
 const HOUR_IN_MS = 60 * 60 * 1000;
 const MINUTE_IN_MS = 60 * 1000;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { Scheduling } from './scheduling.entity.js';
-import { SchedulingStatus } from '../../../enum/scheduling-status.enum.js';
-import { SchedulingTooSoonException } from '../../../exceptions/scheduling-too-soon.exception.js';
+import { SchedulingStatus } from '../../../common/enum/scheduling-status.enum.js';
+import { SchedulingTooSoonException } from '../../../common/exceptions/scheduling-too-soon.exception.js';
 
 const NOW = new Date('2026-11-10T10:00:00.000Z');
 const HOUR_IN_MS = 60 * 60 * 1000;

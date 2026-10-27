@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SchedulingService } from "./scheduling.service.js";
-import { SchedulingNotFoundException } from "../../../exceptions/scheduling-not-found-exception.js";
+import { SchedulingNotFoundException } from "../../../common/exceptions/scheduling-not-found-exception.js";
 import { SCHEDULING_REPOSITORY } from "../repositories/scheduling.repository.interface.js";
-import { SchedulingStatus } from "../../../enum/scheduling-status.enum.js";
+import { SchedulingStatus } from "../../../common/enum/scheduling-status.enum.js";
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { SchedulingAlreadyConfirmedException } from '../../../exceptions/scheduling-already-confirmed.exception.js';
+import { SchedulingAlreadyConfirmedException } from '../../../common/exceptions/scheduling-already-confirmed.exception.js';
 import { SERVICE_CATALOG } from "../ports/service-catalog.interface.js";
 
 const SCHEDULE_ID = '1';

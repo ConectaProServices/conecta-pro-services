@@ -1,6 +1,6 @@
-import { SchedulingStatus } from "../../../enum/scheduling-status.enum.js";
-import { SchedulingAlreadyConfirmedException } from "../../../exceptions/scheduling-already-confirmed.exception.js";
-import { SchedulingTooSoonException } from "../../../exceptions/scheduling-too-soon.exception.js";
+import { SchedulingStatus } from "../../../common/enum/scheduling-status.enum.js";
+import { SchedulingAlreadyConfirmedException } from "../../../common/exceptions/scheduling-already-confirmed.exception.js";
+import { SchedulingTooSoonException } from "../../../common/exceptions/scheduling-too-soon.exception.js";
 
 const MIN_NOTICE_IN_MS = 24 * 60 * 60 * 1000;
 
