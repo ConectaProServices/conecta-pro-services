@@ -26,7 +26,7 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
         password: config.getOrThrow<string>('DB_PASSWORD'),
         database: config.getOrThrow<string>('DB_NAME'),
         autoLoadEntities: true,
-        synchronize: false,
+        synchronize: true, 
       }),
     }),
     SchedulingModule,

@@ -6,9 +6,11 @@ import { SERVICE_CATALOG } from './ports/service-catalog.interface.js';
 import { SchedulingEntity } from '../../infraestructure/persistence/scheduling/scheduling.orm-entity.js';
 import { InMemoryServiceCatalog } from '../../infraestructure/catalog/in-memory-service-catalog.js';
 import { TypeOrmSchedulingRepository } from '../../infraestructure/persistence/scheduling/typeorm-scheduling.repository.js';
+import { SchedulingController } from './controllers/scheduling.controller.js'; // <-- IMPORTANTE ADICIONAR AQUI
 
 @Module({
     imports: [TypeOrmModule.forFeature([SchedulingEntity])],
+    controllers: [SchedulingController], // <-- A ROTA É REGISTRADA AQUI
     providers: [
         SchedulingService,
         TypeOrmSchedulingRepository,
