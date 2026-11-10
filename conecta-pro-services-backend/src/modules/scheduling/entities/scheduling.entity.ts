@@ -32,6 +32,10 @@ export class Scheduling {
     }
 
     public static request(props: RequestSchedulingProps, now: Date = new Date()): Scheduling {
+        if (props.customerId === props.professionalId) {
+            throw new Error("Cliente e prestador não podem ser a mesma pessoa.");
+        }
+
         if (props.startsAt.getTime() - now.getTime() < MIN_NOTICE_IN_MS) {
             throw new SchedulingTooSoonException();
         }
