@@ -44,4 +44,9 @@ Após a alteração, o teste focado passou (4/4) e a suíte completa passou (11/
 
 ## Situação de versionamento
 
-As alterações de código e os oito artefatos estão no worktree local, ainda sem commit ou push. Portanto, o PR #16 no GitHub ainda não contém esta refatoração.
+As alterações foram versionadas em dois commits e enviadas para `feature/10-modelar-agregado-scheduling`:
+
+- `eaab51f` — `refactor(scheduling): type self-participant domain error (ref #10)`
+- `ac05090` — `docs: add Material 06 refactoring and integration artifacts`
+
+O PR #16 acompanha o novo head `ac05090`; permanece Draft e sem reviews humanas ou check runs. A descrição do PR ainda precisa ser atualizada manualmente para refletir o encerramento da refatoração e a pendência de revisão/integração.

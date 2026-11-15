@@ -12,11 +12,11 @@
 | 6 | Refatoração incremental preserva comportamento | Confirmado localmente | Classe específica criada; mensagem e fluxo mantidos |
 | 7 | Testes pós-refatoração passaram | Confirmado localmente | 4/4 focados e 11/11 suíte |
 | 8 | Matriz pré/pós preenchida com evidência real | Confirmado | Ver `06-04-evidencias-regressao.md` |
-| 9 | `git status` e `git diff` inspecionados | Confirmado | Dois arquivos-fonte alterados; oito artefatos novos; sem commit |
+| 9 | `git status` e `git diff` inspecionados | Confirmado | Dois commits separados enviados; worktree limpo após o push |
 | 10 | PRs dependentes revisados individualmente | Não aplicável | Há um único PR contendo teste e implementação |
 | 11 | Matriz comparativa de PRs dependentes | Não aplicável | Não existem PRs dependentes |
 | 12 | Autoavaliação, análise IA e revisão humana distinguidas | Confirmado | Não há revisão humana registrada |
-| 13 | Apontamentos de revisão tratados | Pendente | Alteração principal está apenas local; observações não foram publicadas |
+| 13 | Apontamentos de revisão tratados | Pendente | Refatoração publicada; revisão humana e atualização da descrição do PR pendentes |
 | 14 | Critérios de integração inspecionados | Confirmado | Avaliação de 10 critérios em `06-07-avaliacao-integracao.md` |
 | 15 | Aprovação técnica separada de autorização de merge | Confirmado | Nenhuma autorização formal |
 | 16 | PR classificado nos estados formais | Confirmado com ressalva | Estado A somente como pré-análise por IA; não há aprovação humana |
@@ -34,15 +34,14 @@
 - Testes locais: 4/4 focados e 11/11 na suíte, antes e depois da refatoração.
 - Build: aprovado localmente.
 - Lint: aprovado localmente com um warning preexistente fora dos arquivos alterados.
-- Inconsistências relevantes: exceção dedicada estava vazia no head do PR; número do PR em `05-08` estava incorreto; revisora indicada nos artefatos anteriores é a autora do PR e não pode ser revisora independente.
+- Inconsistências relevantes: exceção dedicada estava vazia no head anterior (corrigida no commit `eaab51f`); número do PR em `05-08` estava incorreto; revisora indicada nos artefatos anteriores é a autora do PR e não pode ser revisora independente; descrição do PR ainda está desatualizada.
 - Status real do GitHub Project: não verificado.
-- Recomendação: manter o PR aberto como Draft e a Issue aberta até publicar/revisar a mudança, obter revisão humana e conferir CI e autorização.
+- Recomendação: manter o PR aberto como Draft e a Issue aberta até atualizar a descrição, obter revisão humana, conferir CI e obter autorização formal.
 
 ## Próximas ações antes da integração
 
-1. Confirmar com a equipe a publicação da refatoração local.
-2. Atualizar o PR sem merge e manter rastreabilidade com a Issue #10.
-3. Designar revisor humano diferente da autora do PR.
-4. Executar/confirmar checks do CI e consultar as regras de proteção.
-5. Confirmar o estado de `SUB-01` no GitHub Project.
-6. Obter autorização formal antes de qualquer merge.
+1. Atualizar a descrição do PR para refletir os commits publicados, sem remover o estado Draft.
+2. Designar revisor humano diferente da autora do PR.
+3. Executar/confirmar checks do CI e consultar as regras de proteção.
+4. Confirmar o estado de `SUB-01` no GitHub Project.
+5. Obter autorização formal antes de qualquer merge.

@@ -41,7 +41,7 @@
 
 ### Apontamentos
 
-1. **Pendência bloqueante para aprovação do estado atual do PR:** no head remoto consultado, `same-participant-scheduling.exception.ts` está vazio e o agregado ainda lança `new Error(...)` genérico. A correção tipada descrita neste artefato está apenas no worktree local; precisa ser versionada e enviada ao PR antes de o parecer se aplicar à versão remota.
+1. **Pendência identificada e corrigida:** no head remoto consultado antes da refatoração, `same-participant-scheduling.exception.ts` estava vazio e o agregado lançava `new Error(...)` genérico. A exceção tipada foi implementada, testada e enviada no commit `eaab51f`; o head atual do PR já contém a correção. A revisão humana ainda precisa analisar esse head atualizado.
 2. **Sugestão de melhoria de escopo futuro:** `DomainHttpExceptionFilter` não mapeia essa exceção para um status HTTP específico; erros não mapeados recebem 500. O comportamento era equivalente com o `Error` genérico e não foi alterado nesta refatoração. Se RN05 deve resultar em 4xx, formalizar esse contrato e seu teste em trabalho funcional separado.
 3. **Sugestão de organização:** o PR tem 42 arquivos alterados, inclusive documentos e reorganização das etapas anteriores. Confirmar que esse escopo documental é intencional ou separar mudanças não relacionadas ao código RN05 para facilitar a revisão.
 
@@ -53,13 +53,13 @@
 | Objetivo | Verificar rejeição de autoagendamento | Impedir autoagendamento na fábrica |
 | Cobertura de RN05 | Sim, via mensagem de erro | Sim, na guarda de igualdade |
 | Estado na cópia remota | Presente | Implementação funcional presente, exceção dedicada incompleta |
-| Estado no worktree local | Sem alteração | Exceção tipada concluída localmente |
+| Estado após atualização do PR | Teste mantido | Exceção tipada presente no head `ac05090` |
 | Testes locais | 4/4 focados e 11/11 suíte | 4/4 focados e 11/11 suíte após refatoração |
-| Parecer | Adequado; não requer alteração | Ajuste local precisa ser publicado; contrato HTTP não faz parte da refatoração |
+| Parecer | Adequado; não requer alteração | Ajuste publicado; revisão humana independente ainda pendente |
 
 ## Revisão humana e parecer
 
-- PR #16 não tem reviews humanas, comentários de revisão ou check runs registrados no GitHub na consulta realizada.
+- PR #16 não tem reviews humanas, comentários de revisão ou check runs registrados na consulta após o push do head `ac05090`.
 - O PR foi aberto por `@LayssaRD`; os artefatos anteriores também indicam Layssa como revisora. Como a autora do PR não pode ser a revisora independente deste PR, outro integrante deve assumir a revisão formal.
-- **Parecer técnico da IA:** aprovação pendente até publicar a exceção tipada e obter revisão humana independente.
+- **Parecer técnico da IA:** a implementação tipada foi publicada e os testes locais passaram; aprovação humana independente continua pendente.
 - Nenhum comentário foi publicado no GitHub por este relatório.
