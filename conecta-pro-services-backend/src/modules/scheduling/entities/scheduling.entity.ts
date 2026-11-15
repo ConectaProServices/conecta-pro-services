@@ -1,5 +1,6 @@
 import { SchedulingStatus } from "../../../common/enum/scheduling-status.enum.js";
 import { SchedulingAlreadyConfirmedException } from "../../../common/exceptions/scheduling-already-confirmed.exception.js";
+import { SameParticipantSchedulingException } from "../../../common/exceptions/same-participant-scheduling.exception.js";
 import { SchedulingTooSoonException } from "../../../common/exceptions/scheduling-too-soon.exception.js";
 
 const MIN_NOTICE_IN_MS = 24 * 60 * 60 * 1000;
@@ -33,7 +34,7 @@ export class Scheduling {
 
     public static request(props: RequestSchedulingProps, now: Date = new Date()): Scheduling {
         if (props.customerId === props.professionalId) {
-            throw new Error("Cliente e prestador não podem ser a mesma pessoa.");
+            throw new SameParticipantSchedulingException();
         }
 
         if (props.startsAt.getTime() - now.getTime() < MIN_NOTICE_IN_MS) {
