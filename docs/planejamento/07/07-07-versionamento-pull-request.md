@@ -60,7 +60,7 @@ Nenhum push direto na `main`, nenhum `--force`.
 | Número | #17 |
 | Título | `[SUB-02] Ativar validação HTTP em POST /schedulings e testes da fronteira` |
 | URL | https://github.com/ConectaProServices/conecta-pro-services/pull/17 |
-| Estado | Open, **Draft** |
+| Estado | Open. Criado como **Draft**; marcado "Ready for review" após os artefatos |
 | Base / origem | `main` ← `feature/11-endpoint-http-solicitar-agendamento` |
 | Vínculo | `Closes #11`; referências a #1 e #14 |
 | Revisora solicitada | `LayssaRD` |
@@ -79,8 +79,9 @@ A descrição do PR contém: contexto, problema (500 na aplicação real), tabel
 | Item | Situação |
 | --- | --- |
 | Revisão humana do PR | Pendente (solicitada a `LayssaRD`) |
-| Issue #11 no Project | `In progress`. Vai para `Under review` quando o PR sair de Draft (pronto para revisão) |
-| PR #17 no Project | Adicionado como `Todo` e corrigido para `In progress` (acompanha a #11) |
+| PR #17 | Marcado como "Ready for review" em 17/11/2026 (`gh pr ready 17`); revisão solicitada a `LayssaRD` |
+| Issue #11 no Project | `Under review` (movida após o PR sair de Draft) |
+| PR #17 no Project | `Under review` (antes: `Todo` → `In progress`) |
 | Issue #11 | Aberta. Será fechada automaticamente pelo `Closes #11` só quando o PR for mergeado |
 | Epic #1 e demais Sub-Issues | Abertas e não alteradas |
 | Merge | Não realizado; depende de revisão aprovada e autorização formal |
@@ -88,7 +89,7 @@ A descrição do PR contém: contexto, problema (500 na aplicação real), tabel
 
 ## 9. Próximas ações
 
-1. Marcar o PR #17 como "Ready for review" e mover a #11 para `Under review`.
+1. ~~Marcar o PR #17 como "Ready for review" e mover a #11 para `Under review`~~ (feito).
 2. A revisora `LayssaRD` revisa o PR no GitHub (comentários ou aprovação).
 3. Tratar as observações da revisão, se houver.
 4. Obter autorização formal da equipe antes do merge.

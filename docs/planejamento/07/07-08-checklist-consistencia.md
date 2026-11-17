@@ -35,9 +35,9 @@
 | 29 | `git status` / `git diff` inspecionados | Confirmado | 07-07 §3 |
 | 30 | Commit semântico com hash real | Confirmado | `3cb3550`, `9877321`, `ff28076` |
 | 31 | Branch publicada | Confirmado | `d61920f..ff28076` no remoto |
-| 32 | PR criado com dependências documentadas | Confirmado | PR #17 (Draft); descrição explica a branch sem cadeia dependente |
-| 33 | GitHub Project atualizado conforme estado real | Confirmado com ressalva | #11 e PR #17 em `In progress`. `Under review` pendente até o PR sair de Draft |
-| 34 | Nenhum merge prematuro | Confirmado nesta etapa | PR #17 aberto/Draft. Ressalva: o PR #16 (etapa anterior) foi mergeado em 17/11 sem review registrada, contrariando a Decisão C do 06-07 (ver 07-01 §10) |
+| 32 | PR criado com dependências documentadas | Confirmado | PR #17 (criado como Draft, agora pronto para revisão); descrição explica a branch sem cadeia dependente |
+| 33 | GitHub Project atualizado conforme estado real | Confirmado | #11 e PR #17 em `Under review` após o PR ser marcado "Ready for review"; nada em `Done` |
+| 34 | Nenhum merge prematuro | Confirmado nesta etapa | PR #17 aberto, aguardando revisão, sem merge. Ressalva: o PR #16 (etapa anterior) foi mergeado em 17/11 sem review registrada, contrariando a Decisão C do 06-07 (ver 07-01 §10) |
 | 35 | Nenhuma Issue encerrada indevidamente | Confirmado | #1, #11 a #15 abertas |
 | 36 | Oito artefatos gravados no diretório | Confirmado | `07-01` a `07-08` em `docs/planejamento/07/` |
 
@@ -66,8 +66,8 @@
 | 14 | Resultado da suíte | 13/13 unitários, 3/3 E2E, build ok |
 | 15 | Commits | `3cb3550`, `9877321`, `ff28076` (+ commit deste fechamento) |
 | 16 | Branch | `feature/11-endpoint-http-solicitar-agendamento` (base `main`) |
-| 17 | Pull Request | #17 Draft → `main`, revisora `LayssaRD` |
+| 17 | Pull Request | #17 → `main`, pronto para revisão, revisora `LayssaRD` |
 | 18 | Dependências com PRs anteriores | PR #16 já mergeado (17/11, 16:48 UTC, sem review, divergindo do 06-07); sem cadeia dependente |
-| 19 | GitHub Project | #11 e PR #17 em `In progress` |
-| 20 | Pendências | Branch vazia duplicada da Layssa (remover com a concordância dela); revisão humana do PR; tirar de Draft e mover para `Under review`; autorização de merge; RN05 sem mapeamento HTTP (SUB-05); alinhar o E2E com `whitelist` (SUB-06); ausência de CI |
+| 19 | GitHub Project | #11 e PR #17 em `Under review` |
+| 20 | Pendências | Branch vazia duplicada da Layssa (remover com a concordância dela); revisão humana do PR; autorização de merge; RN05 sem mapeamento HTTP (SUB-05); alinhar o E2E com `whitelist` (SUB-06); ausência de CI |
 | 21 | Próximas ações | Revisão e merge autorizado do PR #17; SUB-05 (#14) mapear RN05 e revisar contratos de erro; SUB-06 (#15) ampliar E2E (conflito, catálogo inexistente); avaliar extrair `configureHttpApp()` para evitar duplicação da configuração da fronteira |
