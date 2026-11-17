@@ -48,7 +48,7 @@ To https://github.com/ConectaProServices/conecta-pro-services.git
 | Número | #18 |
 | Título | `[SUB-06] Teste integrado do backend para POST /schedulings (repositório em memória)` |
 | URL | https://github.com/ConectaProServices/conecta-pro-services/pull/18 |
-| Estado | Open, **Draft** |
+| Estado | Open. Criado como **Draft**; marcado "Ready for review" em 17/11/2026 (`gh pr ready 18`) |
 | Base / origem | `main` ← `feature/15-teste-integrado-backend` |
 | Vínculo | `Ref #15`. **Não** fecha a Issue (verificado: `closingIssuesReferences` vazio), por decisão da equipe, já que a SUB-06 ainda tem escopo pendente |
 | Revisora | `LayssaRD` |
@@ -57,8 +57,8 @@ To https://github.com/ConectaProServices/conecta-pro-services.git
 
 | Item | Status |
 | --- | --- |
-| #15 SUB-06 | `In progress` (`Todo → Ready → In progress` após a DoR) |
-| PR #18 | `In progress` |
+| #15 SUB-06 | `Under review` (`Todo → Ready → In progress → Under review`) |
+| PR #18 | `Under review` |
 | #13 SUB-04 | `Todo`, **não alterado** (só recebeu o comentário de coordenação) |
 | #1 Epic, #12, #14 | `Todo`, não alterados |
 | WIP | 1 Issue em `In progress` (limite 3) |
@@ -105,8 +105,8 @@ Estados do board da equipe: `Todo → Ready → In progress → Under review →
 | 34 | WIP considerado | Confirmado | 0 → 1 de 3 |
 | 35 | Branch e PR corretos | Confirmado | Base `main` justificada; PR #18 |
 | 36 | Commit rastreável com hash real | Confirmado | `5c2ef8b`, `fe33606`, `be758ac` |
-| 37 | Project atualizado sem encerramentos | Confirmado | #15 e PR #18 em `In progress`; nada em `Done` |
-| 38 | Sem merge prematuro e 8 artefatos gravados | Confirmado | PR #18 Draft; `08-01` a `08-08` em `docs/planejamento/08/` |
+| 37 | Project atualizado sem encerramentos | Confirmado | #15 e PR #18 em `Under review`; nada em `Done` |
+| 38 | Sem merge prematuro e 8 artefatos gravados | Confirmado | PR #18 aberto, aguardando revisão; `08-01` a `08-08` em `docs/planejamento/08/` |
 
 ### Transparência
 
@@ -134,7 +134,7 @@ Estados do board da equipe: `Todo → Ready → In progress → Under review →
 | 14 | Persistência real | Adaptador TypeORM já existe; riscos: `synchronize: true`, **constraint anti-sobreposição não aplicada no banco local**, acoplamento do módulo, SUB-04 sem revisão |
 | 15 | Branch | `feature/15-teste-integrado-backend` |
 | 16 | Commits | `5c2ef8b`, `fe33606`, `be758ac` (+ commit deste artefato) |
-| 17 | Pull Request | #18 Draft → `main`, `Ref #15`, revisora `LayssaRD` |
-| 18 | GitHub Project | #15 e PR #18 em `In progress` |
-| 19 | Pendências | Tirar o PR #18 de Draft e mover para `Under review`; revisão humana; autorização de merge; RN05 → 500 (SUB-05); constraint e `synchronize` (SUB-04); 07-07/07-08 sem o registro do merge do PR #17 (adiado) |
+| 17 | Pull Request | #18 → `main`, pronto para revisão, `Ref #15`, revisora `LayssaRD` |
+| 18 | GitHub Project | #15 e PR #18 em `Under review` |
+| 19 | Pendências | Revisão humana; autorização de merge; RN05 → 500 (SUB-05); constraint e `synchronize` (SUB-04); 07-07/07-08 sem o registro do merge do PR #17 (adiado) |
 | 20 | Próximas ações | Revisão e merge do PR #18; abrir o ciclo da SUB-04 (aplicar migration, desligar `synchronize`, suíte de contrato comum aos adaptadores); SUB-05 mapear RN05; concluir a SUB-06 com E2E de conflito e catálogo |
