@@ -38,3 +38,23 @@ describe('Scheduling.request (RN01 - antecedência mínima de 24h)', () => {
         expect(() => Scheduling.request(params, NOW)).toThrow(SchedulingTooSoonException);
     });
 });
+
+describe('Scheduling.request (RN05 - proibição de cliente idêntico ao prestador)', () => {
+    it('deve lançar erro de domínio quando customerId e professionalId forem idênticos', () => {
+        // Arrange (Preparação): dados válidos com antecedência > 24h, porém com IDs iguais
+        const sameUserId = '22222222-2222-4222-8222-222222222222';
+        const startsAt = hoursFromNow(48);
+        const params = {
+            ...buildParams(startsAt),
+            customerId: sameUserId,
+            professionalId: sameUserId,
+        };
+
+        // Act & Assert (Ação e Verificação):
+        // O método de fábrica deve barrar a criação e lançar erro de domínio
+        expect(() => Scheduling.request(params, NOW)).toThrow(
+            /cliente e prestador não podem ser a mesma pessoa|self-scheduling not allowed/i,
+        );
+    });
+});
+
