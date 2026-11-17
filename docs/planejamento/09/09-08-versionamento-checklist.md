@@ -96,7 +96,7 @@ $ git push -u origin feature/13-persistencia-postgresql
 | Número | #19 |
 | URL | https://github.com/ConectaProServices/conecta-pro-services/pull/19 |
 | Título | `[SUB-04] Persistência real: synchronize desativado, migration aplicada e testes com PostgreSQL` |
-| Estado | Open, **Draft** |
+| Estado | Open. Criado como **Draft**; marcado "Ready for review" em 17/11/2026 (`gh pr ready 19`) |
 | Base / origem | `main` ← `feature/13-persistencia-postgresql` |
 | Vínculo | `Closes #13` (verificado: `closingIssuesReferences = [13]`), por decisão da equipe, já que os 3 CAs da SUB-04 foram comprovados |
 | Revisora | `LayssaRD` |
@@ -105,10 +105,10 @@ $ git push -u origin feature/13-persistencia-postgresql
 
 | Item | Status |
 | --- | --- |
-| #13 SUB-04 | `In progress` (`Todo → Ready → In progress`) |
-| PR #19 | `In progress` |
+| #13 SUB-04 | `Under review` (`Todo → Ready → In progress → Under review`) |
+| PR #19 | `Under review` |
 | #15 SUB-06 | `Under review` (desatualizado desde o merge do PR #18; não alterado, decisão pendente da equipe) |
-| WIP | 2 de 3 (#13 em `In progress`, #15 em `Under review`) |
+| WIP | 2 de 3 (#13 e #15 em `Under review`) |
 
 ## 19. Checklist
 
@@ -193,7 +193,7 @@ $ git push -u origin feature/13-persistencia-postgresql
 | Branch publicada | Confirmado | Push `[new branch]` |
 | PR com rastreabilidade | Confirmado | #19 |
 | Project atualizado | Confirmado | §18 |
-| Sem merge prematuro e 8 artefatos salvos | Confirmado | PR #19 Draft; `09-01` a `09-08` |
+| Sem merge prematuro e 8 artefatos salvos | Confirmado | PR #19 aberto, aguardando revisão; `09-01` a `09-08` |
 
 ### Transparência
 
@@ -201,7 +201,7 @@ Comandos, consultas, testes e commits foram executados pelo assistente no ambien
 
 ## 20. Pendências abertas
 
-1. Revisão humana do PR #19, tirada de Draft e merge autorizado. Ao mergear, a #13 fecha.
+1. Revisão humana do PR #19 e merge autorizado. Ao mergear, a #13 fecha.
 2. README: documentar `pnpm typeorm migration:run` e `pnpm test:integration` (necessários com `synchronize: false`).
 3. `compose.yaml` (5432) × container (5435): parametrizar a porta.
 4. Senha de desenvolvimento versionada no `compose.yaml`.
