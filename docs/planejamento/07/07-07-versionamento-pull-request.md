@@ -16,6 +16,8 @@
 
 Justificativa: o serviço GREEN e todos os contratos foram integrados à `main` pelo PR #16. A cadeia de branches dependentes não se aplica, porque não existe branch intermediária pendente. Todos os commits da branch são exclusivos da SUB-02 (ver 07-02, Refinamento 2).
 
+Branch paralela: existe também `11-sub-02-definir-dto-de-entrada-e-endpoint-http-de-criação`, criada por `LayssaRD` a partir da Issue. Ela está vazia e não foi usada. A equipe decidiu manter esta branch e o PR #17 (ver 07-02, "Correção: branch duplicada").
+
 ## 3. Inspeção antes do commit
 
 `git status --short` antes do commit:
@@ -78,6 +80,7 @@ A descrição do PR contém: contexto, problema (500 na aplicação real), tabel
 | --- | --- |
 | Revisão humana do PR | Pendente (solicitada a `LayssaRD`) |
 | Issue #11 no Project | `In progress`. Vai para `Under review` quando o PR sair de Draft (pronto para revisão) |
+| PR #17 no Project | Adicionado como `Todo` e corrigido para `In progress` (acompanha a #11) |
 | Issue #11 | Aberta. Será fechada automaticamente pelo `Closes #11` só quando o PR for mergeado |
 | Epic #1 e demais Sub-Issues | Abertas e não alteradas |
 | Merge | Não realizado; depende de revisão aprovada e autorização formal |
@@ -90,3 +93,4 @@ A descrição do PR contém: contexto, problema (500 na aplicação real), tabel
 3. Tratar as observações da revisão, se houver.
 4. Obter autorização formal da equipe antes do merge.
 5. SUB-05 (#14): mapear `SameParticipantSchedulingException` (RN05).
+6. Confirmar com `LayssaRD` a remoção da branch vazia `11-sub-02-definir-dto-de-entrada-e-endpoint-http-de-criação`.

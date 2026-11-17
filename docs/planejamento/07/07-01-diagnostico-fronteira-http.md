@@ -157,6 +157,11 @@ Ambas as execuções exibiram somente o aviso do plugin `vite-tsconfig-paths`.
 - Pull Requests abertos: nenhum.
 - Não há cadeia de branches dependentes: o serviço GREEN já está na `main`.
 
+### Correções registradas após revisão contra o GitHub (17/11/2026)
+
+- **Merge do PR #16:** feito em 17/11/2026 às 16:48 UTC por `JPZS-Git`, antes desta etapa. A #10 foi fechada às 16:55 UTC. Isso **diverge da "Decisão C - integração não recomendada"** do `06-07` e do `06-08`, que pediam revisão humana e autorização formal antes do merge. O PR #16 não tem reviews registradas. A divergência fica documentada aqui; esta etapa parte do estado real da `main`.
+- **Branch da SUB-02 não detectada no diagnóstico:** `LayssaRD` criou a branch `11-sub-02-definir-dto-de-entrada-e-endpoint-http-de-criação` às 16:55 UTC pelo botão "Create a branch" da Issue #11. Ela está vinculada à #11 em "Development" e não tem commits além da `main`. Não apareceu na listagem inicial porque o diagnóstico rodou `git branch -a` **sem `git fetch`**. É uma falha do diagnóstico.
+
 ## 11. Pendências e condições para prosseguir
 
 | # | Pendência | Ação | Responsável |

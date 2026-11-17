@@ -17,8 +17,21 @@ main (d61920f)  <- Merge pull request #16 (SUB-01 / Material 04-06)
 ```
 
 - O serviço GREEN (`SchedulingService.requestScheduling`), o agregado com RN05 e todos os contratos (`SCHEDULING_REPOSITORY`, `SERVICE_CATALOG`) estão na `main`.
-- Não há PRs abertos nem branches de trabalho pendentes.
+- Não há PRs abertos.
 - Estratégia de integração do Material 06: PR único, sem cadeia de PRs dependentes.
+
+### Correção: branch duplicada para a SUB-02
+
+A verificação original não rodou `git fetch` e deixou de ver a branch `11-sub-02-definir-dto-de-entrada-e-endpoint-http-de-criação`, criada por `LayssaRD` às 16:55 UTC a partir da Issue #11. Ela é vazia (igual a `d61920f`) e está vinculada à Issue. A branch `feature/11-endpoint-http-solicitar-agendamento` foi criada depois (17:25 UTC), gerando duas branches para a mesma Sub-Issue.
+
+**Decisão da equipe (17/11/2026):** manter `feature/11-endpoint-http-solicitar-agendamento` e o PR #17. Motivos: segue o padrão `feature/<issue>-<descrição>` da SUB-01, já contém todo o trabalho, e o `Closes #11` do PR vincula a Issue. A branch vazia da Layssa só será removida com a concordância dela.
+
+```text
+main (d61920f)
+  |
+  +-- 11-sub-02-definir-dto-de-entrada-e-endpoint-http-de-criação   (LayssaRD, vazia; não usada)
+  +-- feature/11-endpoint-http-solicitar-agendamento                (SUB-02, PR #17)
+```
 
 ## 3. Branch de trabalho e justificativa (Refinamento 2)
 
