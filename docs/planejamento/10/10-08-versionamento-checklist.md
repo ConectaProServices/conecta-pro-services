@@ -88,7 +88,7 @@ Mais um commit com este artefato. Push: `* [new branch] feature/20-containerizac
 | --- | --- |
 | Número | #21 |
 | URL | https://github.com/ConectaProServices/conecta-pro-services/pull/21 |
-| Estado | Open, **Draft** |
+| Estado | Open. Criado como **Draft**; marcado "Ready for review" em 17/11/2026 (`gh pr ready 21`) |
 | Base / origem | `main` ← `feature/20-containerizacao-backend` |
 | Vínculo | `Closes #20` (verificado: `closingIssuesReferences = [20]`), `refs #1` |
 | Revisora | `LayssaRD` (pedido explícito de "Approve" na descrição) |
@@ -97,8 +97,8 @@ Mais um commit com este artefato. Push: `* [new branch] feature/20-containerizac
 
 | Item | Status |
 | --- | --- |
-| #20 SUB-07 | `In progress` (`Todo → Ready → In progress`) |
-| PR #21 | `In progress` |
+| #20 SUB-07 | `Under review` (`Todo → Ready → In progress → Under review`) |
+| PR #21 | `Under review` |
 | #15 SUB-06 | `Under review` (desatualizado, não alterado) |
 
 ## 20. Checklist
