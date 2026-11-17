@@ -1,5 +1,5 @@
 // src/common/filters/domain-http-exception.filter.ts
-import { ArgumentsHost, Catch, ExceptionFilter, HttpStatus } from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus } from '@nestjs/common';
 import type { Response } from 'express';
 
 import { CatalogServiceNotFoundException } from '../exceptions/catalog-service-not-found.exception.js';
@@ -23,6 +23,15 @@ export class DomainHttpExceptionFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
+
+    // Exceções HTTP do próprio Nest (ex.: 400 do ValidationPipe) mantêm status e corpo originais.
+    if (exception instanceof HttpException) {
+      const body = exception.getResponse();
+      return response
+        .status(exception.getStatus())
+        .json(typeof body === 'string' ? { statusCode: exception.getStatus(), message: body } : body);
+    }
+
     const status = this.resolveStatus(exception);
 
     if (status !== undefined) {
