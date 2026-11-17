@@ -8,7 +8,8 @@ services:
       POSTGRES_PASSWORD: conecta_dev_password
       POSTGRES_DB: conecta_db
     ports:
-      - "5432:5432"
+      # host 5435 -> porta interna 5432 do PostgreSQL (a 5432 do host costuma estar ocupada)
+      - "5435:5432"
     volumes:
       - conecta_postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -16,6 +17,27 @@ services:
       interval: 5s
       timeout: 5s
       retries: 10
+
+  api:
+    container_name: conecta-api
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: conecta-pro-services-api:dev
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      PORT: 3000
+      # Dentro da rede do Compose o banco é alcançado pelo nome do serviço e pela porta interna.
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   conecta_postgres_data:
