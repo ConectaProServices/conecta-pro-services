@@ -1,0 +1,29 @@
+# Dependências e artefatos gerados (reinstalados/compilados dentro da imagem)
+node_modules
+dist
+coverage
+*.tsbuildinfo
+
+# Segredos e configuração local (as variáveis chegam pelo Compose)
+.env
+.env.*
+!.env.example
+
+# Controle de versão, editores e logs
+.git
+.gitignore
+.vscode
+.idea
+*.log
+
+# Não necessários para construir ou executar a API
+test
+http-rest-client
+package-lock.json
+compose.yaml
+Dockerfile
+.dockerignore
+README.md
+.oxlintrc.json
+.prettierrc
+vitest.config*.ts
