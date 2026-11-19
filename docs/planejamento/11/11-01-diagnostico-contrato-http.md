@@ -66,4 +66,3 @@ Adicionar um mapper HTTP explícito e preservá-lo no Controller. Não alterar d
 ## 7. Pendências
 
 - Configurar `TEST_DB_*` com banco e usuário exclusivos terminados em `_test`.
-- Identificar ou criar uma Issue específica da estabilização do contrato, sem reutilizar a Issue de containerização nem duplicar planejamento.

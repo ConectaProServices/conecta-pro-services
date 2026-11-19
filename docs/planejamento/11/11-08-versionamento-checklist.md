@@ -10,7 +10,7 @@ UC01 - Solicitar Agendamento, `POST /schedulings`.
 
 ## 3. Issue
 
-Não foi identificada uma Issue específica do Material 11. O planejamento existente não permitiu reutilizar automaticamente a Issue #20 de containerização. A Issue #15 permanece vinculada a testes, mas seu escopo atual não foi presumido como substituto desta estabilização.
+Issue associada pela maior cobertura: **#15 - `[SUB-06] Definir testes automatizados do UC01`**. A Issue #20 não foi reutilizada, pois é específica da containerização.
 
 ## 4. Branch
 
@@ -72,7 +72,7 @@ Nenhuma alteração em Service, Repository, entidade de domínio, entidade ORM, 
 
 ## 17. Commits
 
-Ainda não criado nesta etapa.
+**a827522** - `feat(scheduling): stabilize HTTP response contract (refs #15)`.
 
 ## 18. Pull Request
 
@@ -89,7 +89,7 @@ Não atualizado por falta de acesso à CLI GitHub.
 | Oito documentos do Material 10 analisados | Confirmado |
 | Contrato anterior recuperado | Confirmado |
 | Controller, DTO e Service inspecionados | Confirmado |
-| Issue específica identificada | Pendente |
+| Issue mais adequada associada | Confirmado (#15) |
 | Campos públicos definidos | Confirmado |
 | DTO de entrada diferenciado | Confirmado |
 | Entidade ORM separada | Confirmado |
@@ -113,7 +113,7 @@ Não atualizado por falta de acesso à CLI GitHub.
 2. Configurar `TEST_DB_*` em banco isolado.
 3. Executar `pnpm test:integration`.
 4. Reconstruir a imagem e testar `POST /schedulings`.
-5. Confirmar uma Issue específica e criar/atualizar PR sem merge.
+5. Criar/atualizar PR sem merge.
 
 ## 22. Próximas ações
 
