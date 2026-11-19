@@ -32,6 +32,22 @@ export class InMemorySchedulingRepository implements ISchedulingRepository {
         return false;
     }
 
+    async existsActiveForCustomerOnDate(customerId: string, startsAt: Date): Promise<boolean> {
+        const requestedDate = startsAt.toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' });
+
+        for (const scheduling of this.schedulings.values()) {
+            if (
+                scheduling.customerId === customerId &&
+                ACTIVE_STATUSES.includes(scheduling.getStatus()) &&
+                scheduling.deletedAt === null &&
+                scheduling.startsAt.toLocaleDateString('en-CA', { timeZone: 'America/Sao_Paulo' }) === requestedDate
+            ) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     async save(scheduling: Scheduling): Promise<Scheduling> {
         this.schedulings.set(scheduling.schedulingId, scheduling);
         return scheduling;

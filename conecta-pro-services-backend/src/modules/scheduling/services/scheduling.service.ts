@@ -5,6 +5,7 @@ import { SchedulingStatus } from "../../../common/enum/scheduling-status.enum.js
 import { SchedulingNotFoundException } from "../../../common/exceptions/scheduling-not-found-exception.js";
 import { SchedulingConflictException } from "../../../common/exceptions/scheduling-conflict.exception.js";
 import { CatalogServiceNotFoundException } from "../../../common/exceptions/catalog-service-not-found.exception.js";
+import { CustomerDailySchedulingLimitException } from "../../../common/exceptions/customer-daily-scheduling-limit.exception.js";
 import { SCHEDULING_REPOSITORY, type ISchedulingRepository } from "../repositories/scheduling.repository.interface.js";
 import { SERVICE_CATALOG, type IServiceCatalog } from "../ports/service-catalog.interface.js";
 import { Scheduling } from "../entities/scheduling.entity.js";
@@ -37,6 +38,14 @@ export class SchedulingService {
             startsAt: input.startsAt,
             endsAt,
         });
+
+        const hasCustomerScheduling = await this.schedulingRepository.existsActiveForCustomerOnDate(
+            input.customerId,
+            input.startsAt,
+        );
+        if (hasCustomerScheduling) {
+            throw new CustomerDailySchedulingLimitException();
+        }
 
         const hasConflict = await this.schedulingRepository.existsOverlapping(
             input.professionalId,

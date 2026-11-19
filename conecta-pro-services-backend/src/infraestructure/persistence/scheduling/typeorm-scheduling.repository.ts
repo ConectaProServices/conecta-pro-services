@@ -5,10 +5,13 @@ import { Scheduling } from '../../../modules/scheduling/entities/scheduling.enti
 import type { ISchedulingRepository } from '../../../modules/scheduling/repositories/scheduling.repository.interface.js';
 import { SchedulingStatus } from '../../../common/enum/scheduling-status.enum.js';
 import { SchedulingConflictException } from '../../../common/exceptions/scheduling-conflict.exception.js';
+import { CustomerDailySchedulingLimitException } from '../../../common/exceptions/customer-daily-scheduling-limit.exception.js';
 import { SchedulingEntity } from './scheduling.orm-entity.js';
 import { SchedulingOrmMapper } from './scheduling.orm-mapper.js';
 
 const EXCLUSION_VIOLATION = '23P01';
+const UNIQUE_VIOLATION = '23505';
+const CUSTOMER_DAILY_LIMIT_INDEX = 'UQ_schedulings_customer_sao_paulo_date_active';
 
 @Injectable()
 export class TypeOrmSchedulingRepository implements ISchedulingRepository {
@@ -40,6 +43,22 @@ export class TypeOrmSchedulingRepository implements ISchedulingRepository {
         });
     }
 
+    async existsActiveForCustomerOnDate(customerId: string, startsAt: Date): Promise<boolean> {
+        return this.repository
+            .createQueryBuilder('scheduling')
+            .where('scheduling.customerId = :customerId', { customerId })
+            .andWhere('scheduling.status IN (:...activeStatuses)', {
+                activeStatuses: [SchedulingStatus.PENDING, SchedulingStatus.CONFIRMED],
+            })
+            .andWhere('scheduling.deletedAt IS NULL')
+            .andWhere(
+                `(scheduling.startsAt AT TIME ZONE 'America/Sao_Paulo')::date = ` +
+                    `(CAST(:startsAt AS timestamptz) AT TIME ZONE 'America/Sao_Paulo')::date`,
+                { startsAt },
+            )
+            .getExists();
+    }
+
     async save(scheduling: Scheduling): Promise<Scheduling> {
         const entity = SchedulingOrmMapper.toPersistence(scheduling);
 
@@ -50,6 +69,9 @@ export class TypeOrmSchedulingRepository implements ISchedulingRepository {
             if (this.isExclusionViolation(error)) {
                 throw new SchedulingConflictException();
             }
+            if (this.isCustomerDailyLimitViolation(error)) {
+                throw new CustomerDailySchedulingLimitException();
+            }
             throw error;
         }
     }
@@ -57,5 +79,18 @@ export class TypeOrmSchedulingRepository implements ISchedulingRepository {
     private isExclusionViolation(error: unknown): boolean {
         const candidate = error as { code?: string; driverError?: { code?: string } };
         return (candidate?.driverError?.code ?? candidate?.code) === EXCLUSION_VIOLATION;
+    }
+
+    private isCustomerDailyLimitViolation(error: unknown): boolean {
+        const candidate = error as {
+            code?: string;
+            constraint?: string;
+            driverError?: { code?: string; constraint?: string };
+        };
+        const driverError = candidate?.driverError;
+        return (
+            (driverError?.code ?? candidate?.code) === UNIQUE_VIOLATION &&
+            (driverError?.constraint ?? candidate?.constraint) === CUSTOMER_DAILY_LIMIT_INDEX
+        );
     }
 }

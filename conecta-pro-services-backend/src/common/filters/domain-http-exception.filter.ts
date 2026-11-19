@@ -8,6 +8,8 @@ import { SchedulingConflictException } from '../exceptions/scheduling-conflict.e
 import { SchedulingNotFoundException } from '../exceptions/scheduling-not-found-exception.js';
 import { SchedulingAlreadyConfirmedException } from '../exceptions/scheduling-already-confirmed.exception.js';
 import { ServiceNotAvailableException } from '../exceptions/service-not-available.exception.js';
+import { SameParticipantSchedulingException } from '../exceptions/same-participant-scheduling.exception.js';
+import { CustomerDailySchedulingLimitException } from '../exceptions/customer-daily-scheduling-limit.exception.js';
 
 const DOMAIN_EXCEPTION_STATUS = new Map<any, HttpStatus>([
   [CatalogServiceNotFoundException, HttpStatus.NOT_FOUND],
@@ -15,7 +17,9 @@ const DOMAIN_EXCEPTION_STATUS = new Map<any, HttpStatus>([
   [ServiceNotAvailableException, HttpStatus.UNPROCESSABLE_ENTITY],
   [SchedulingTooSoonException, HttpStatus.UNPROCESSABLE_ENTITY],
   [SchedulingConflictException, HttpStatus.CONFLICT],
+  [CustomerDailySchedulingLimitException, HttpStatus.CONFLICT],
   [SchedulingAlreadyConfirmedException, HttpStatus.CONFLICT],
+  [SameParticipantSchedulingException, HttpStatus.UNPROCESSABLE_ENTITY],
 ]);
 
 @Catch()

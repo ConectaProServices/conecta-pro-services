@@ -4,6 +4,7 @@ import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 
 import { SchedulingStatus } from '../../src/common/enum/scheduling-status.enum.js';
 import { SchedulingConflictException } from '../../src/common/exceptions/scheduling-conflict.exception.js';
+import { CustomerDailySchedulingLimitException } from '../../src/common/exceptions/customer-daily-scheduling-limit.exception.js';
 import { DEMO_SERVICE_ID } from '../../src/infraestructure/catalog/in-memory-service-catalog.js';
 import { SchedulingEntity } from '../../src/infraestructure/persistence/scheduling/scheduling.orm-entity.js';
 import { TypeOrmSchedulingRepository } from '../../src/infraestructure/persistence/scheduling/typeorm-scheduling.repository.js';
@@ -25,11 +26,13 @@ const hoursFromNowRounded = (hours: number) => {
   return date;
 };
 
-const buildScheduling = (overrides: Partial<{ professionalId: string; startsAt: Date; endsAt: Date }> = {}) => {
+const buildScheduling = (
+  overrides: Partial<{ customerId: string; professionalId: string; startsAt: Date; endsAt: Date }> = {},
+) => {
   const startsAt = overrides.startsAt ?? hoursFromNowRounded(72);
   return Scheduling.request({
     schedulingId: randomUUID(),
-    customerId: randomUUID(),
+    customerId: overrides.customerId ?? randomUUID(),
     serviceId: DEMO_SERVICE_ID,
     professionalId: overrides.professionalId ?? randomUUID(),
     startsAt,
@@ -94,6 +97,7 @@ describe('TypeOrmSchedulingRepository — integração com PostgreSQL real (banc
     expect(await dataSource.showMigrations()).toBe(false); // false = nenhuma migration pendente
     const applied = (await dataSource.query('SELECT name FROM public.migrations')) as { name: string }[];
     expect(applied.map((m) => m.name)).toContain('CreateSchedulings1793060000000');
+    expect(applied.map((m) => m.name)).toContain('EnforceCustomerDailySchedulingLimit1793070000000');
   });
 
   it('save() grava o agendamento e o registro no banco coincide com a entidade de domínio', async () => {
@@ -180,5 +184,33 @@ describe('TypeOrmSchedulingRepository — integração com PostgreSQL real (banc
       [professionalId],
     )) as { count: number }[];
     expect(count).toBe(1);
+  });
+
+  it('RN03 usa o dia de Sao Paulo e a constraint impede duplicidade concorrente', async () => {
+    const customerId = randomUUID();
+    const first = buildScheduling({
+      customerId,
+      startsAt: new Date('2030-01-15T23:00:00.000Z'),
+    });
+    createdIds.push(first.schedulingId);
+    await repository.save(first);
+
+    expect(
+      await repository.existsActiveForCustomerOnDate(customerId, new Date('2030-01-16T02:00:00.000Z')),
+    ).toBe(true);
+    expect(
+      await repository.existsActiveForCustomerOnDate(customerId, new Date('2030-01-16T03:00:00.000Z')),
+    ).toBe(false);
+
+    const concurrentDuplicate = buildScheduling({
+      customerId,
+      professionalId: randomUUID(),
+      startsAt: new Date('2030-01-16T02:00:00.000Z'),
+    });
+    createdIds.push(concurrentDuplicate.schedulingId);
+
+    await expect(repository.save(concurrentDuplicate)).rejects.toBeInstanceOf(
+      CustomerDailySchedulingLimitException,
+    );
   });
 });

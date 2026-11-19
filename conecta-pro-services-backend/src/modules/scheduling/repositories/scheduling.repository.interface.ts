@@ -7,5 +7,7 @@ export interface ISchedulingRepository {
     
     existsOverlapping(professionalId: string, startsAt: Date, endsAt: Date): Promise<boolean>;
 
+    existsActiveForCustomerOnDate(customerId: string, startsAt: Date): Promise<boolean>;
+
     save(scheduling: Scheduling): Promise<Scheduling>;
 }
