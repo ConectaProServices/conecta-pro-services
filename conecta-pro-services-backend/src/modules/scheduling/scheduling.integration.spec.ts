@@ -7,6 +7,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SchedulingStatus } from '../../common/enum/scheduling-status.enum.js';
 import { DomainHttpExceptionFilter } from '../../common/filters/domain-http-exception.filter.js';
+import { CustomerDailySchedulingLimitException } from '../../common/exceptions/customer-daily-scheduling-limit.exception.js';
+import { SameParticipantSchedulingException } from '../../common/exceptions/same-participant-scheduling.exception.js';
 import { DEMO_SERVICE_ID, InMemoryServiceCatalog } from '../../infraestructure/catalog/in-memory-service-catalog.js';
 import { InMemorySchedulingRepository } from '../../infraestructure/persistence/scheduling/in-memory-scheduling.repository.js';
 import { SchedulingEntity } from '../../infraestructure/persistence/scheduling/scheduling.orm-entity.js';
@@ -155,6 +157,57 @@ describe('POST /schedulings — integração do backend (módulo, controller, se
 
     expect(response.body.error).toBe('SchedulingTooSoonException');
     expect(saveSpy).not.toHaveBeenCalled();
+  });
+
+  it('retorna 422 para cliente igual ao prestador (RN05)', async () => {
+    const sameParticipantId = randomUUID();
+
+    const response = await request(app.getHttpServer())
+      .post('/schedulings')
+      .send(buildPayload({ customerId: sameParticipantId, professionalId: sameParticipantId }))
+      .expect(HttpStatus.UNPROCESSABLE_ENTITY);
+
+    expect(response.body).toMatchObject({
+      statusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+      error: SameParticipantSchedulingException.name,
+    });
+  });
+
+  it('retorna 409 quando o cliente já tem agendamento ativo na data local (RN03)', async () => {
+    const customerId = randomUUID();
+    const startsAt = '2030-01-15T23:00:00.000Z';
+
+    await request(app.getHttpServer())
+      .post('/schedulings')
+      .send(buildPayload({ customerId, startsAt }))
+      .expect(HttpStatus.CREATED);
+
+    const response = await request(app.getHttpServer())
+      .post('/schedulings')
+      .send(
+        buildPayload({
+          customerId,
+          startsAt: '2030-01-16T02:00:00.000Z',
+          professionalId: randomUUID(),
+        }),
+      )
+      .expect(HttpStatus.CONFLICT);
+
+    expect(response.body).toMatchObject({
+      statusCode: HttpStatus.CONFLICT,
+      error: CustomerDailySchedulingLimitException.name,
+    });
+
+    await request(app.getHttpServer())
+      .post('/schedulings')
+      .send(
+        buildPayload({
+          customerId,
+          startsAt: '2030-01-16T03:00:00.000Z',
+          professionalId: randomUUID(),
+        }),
+      )
+      .expect(HttpStatus.CREATED);
   });
 });
 

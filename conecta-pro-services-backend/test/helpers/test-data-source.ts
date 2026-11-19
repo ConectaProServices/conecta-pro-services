@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { DataSource } from 'typeorm';
 import { CreateSchedulings1793060000000 } from '../../src/database/migrations/1793060000000-CreateScheduling.js';
+import { EnforceCustomerDailySchedulingLimit1793070000000 } from '../../src/database/migrations/1793070000000-EnforceCustomerDailySchedulingLimit.js';
 import { SchedulingEntity } from '../../src/infraestructure/persistence/scheduling/scheduling.orm-entity.js';
 
 export interface TestDatabaseConfig {
@@ -56,7 +57,7 @@ export function createTestDataSource(config: TestDatabaseConfig): DataSource {
     password: config.password,
     database: config.database,
     entities: [SchedulingEntity],
-    migrations: [CreateSchedulings1793060000000],
+    migrations: [CreateSchedulings1793060000000, EnforceCustomerDailySchedulingLimit1793070000000],
     synchronize: false,
     logging: false,
   });
