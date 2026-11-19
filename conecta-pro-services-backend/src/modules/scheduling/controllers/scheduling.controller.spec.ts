@@ -106,4 +106,40 @@ describe('POST /schedulings (fronteira HTTP com serviço mockado)', () => {
     );
     expect(schedulingServiceMock.requestScheduling).not.toHaveBeenCalled();
   });
+
+  it('não expõe propriedades internas adicionadas pelo objeto retornado pelo Service', async () => {
+    schedulingServiceMock.requestScheduling.mockResolvedValue({
+      schedulingId: SCHEDULING_ID,
+      customerId: CUSTOMER_ID,
+      serviceId: SERVICE_ID,
+      professionalId: PROFESSIONAL_ID,
+      startsAt: new Date(STARTS_AT),
+      endsAt: new Date(ENDS_AT),
+      status: 'PENDING',
+      message: 'Scheduling requested successfully.',
+      internalSchedulingTrace: 'informacao-interna-ilustrativa',
+    });
+
+    const response = await request(app.getHttpServer())
+      .post('/schedulings')
+      .send({
+        customerId: CUSTOMER_ID,
+        serviceId: SERVICE_ID,
+        professionalId: PROFESSIONAL_ID,
+        startsAt: STARTS_AT,
+      })
+      .expect(HttpStatus.CREATED);
+
+    expect(response.body).not.toHaveProperty('internalSchedulingTrace');
+    expect(response.body).toEqual({
+      schedulingId: SCHEDULING_ID,
+      customerId: CUSTOMER_ID,
+      serviceId: SERVICE_ID,
+      professionalId: PROFESSIONAL_ID,
+      startsAt: STARTS_AT,
+      endsAt: ENDS_AT,
+      status: 'PENDING',
+      message: 'Scheduling requested successfully.',
+    });
+  });
 });
