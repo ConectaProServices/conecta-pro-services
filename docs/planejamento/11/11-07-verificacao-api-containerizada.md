@@ -39,8 +39,8 @@ Executado contra `http://localhost:3000/schedulings`:
 
 ## 5. Consulta PostgreSQL pendente
 
-Foi consultada a tabela `scheduling.schedulings` no banco disponível do contêiner. O anexo registrou o identificador real `8ce1bf19-bab1-47fa-820f-e83875d0c6b2`; a consulta posterior confirmou pelo menos uma linha correspondente aos registros criados. O banco `conecta_dev` não existia neste contêiner no momento da nova consulta.
+O usuário executou uma consulta read-only em `scheduling.schedulings`, mas a saída compartilhada foi apenas `-- (1 row)` e não demonstrou os valores da linha. Portanto, a persistência do identificador HTTP não é considerada confirmada por essa consulta. O banco `conecta_dev` também não existia neste contêiner no momento da tentativa; o banco de testes `conecta_test` foi criado em separado para a suíte de integração.
 
 ## 6. Conclusão
 
-A proteção do contrato foi comprovada no teste HTTP local e na API reconstruída. A consulta SQL foi limitada pelo banco disponível no contêiner atual. A integração PostgreSQL continua pendente porque `TEST_DB_*` não está configurado.
+A proteção do contrato foi comprovada no teste HTTP local e na API reconstruída. A consulta SQL permanece inconclusiva. Posteriormente, `pnpm test:integration` foi executado com banco e usuário de testes dedicados: 5/5 aprovados.

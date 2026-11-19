@@ -53,8 +53,8 @@ Tests       22 passed (22)
 | `pnpm test` | 22/22 |
 | `pnpm build` | Aprovado |
 | `pnpm lint` | 0 erros; 1 warning preexistente |
-| `pnpm test:integration` | Não aprovado: `TEST_DB_HOST` não definido; 5 testes foram ignorados |
+| `pnpm test:integration` | 5/5 aprovados contra `conecta_test`, com usuário de testes dedicado e migrations aplicadas |
 
 ## 6. Regressões
 
-Não foram observadas regressões na suíte rápida. A integração PostgreSQL não pôde ser reexecutada nesta sessão porque `TEST_DB_*` não está configurado.
+Não foram observadas regressões na suíte rápida nem na integração PostgreSQL. A identidade do banco e do usuário de testes foi validada pela suíte. Não foram incluídos valores de credenciais neste documento.

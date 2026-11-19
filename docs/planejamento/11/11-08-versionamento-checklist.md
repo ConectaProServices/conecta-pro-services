@@ -58,7 +58,7 @@ Verificada em 19/11/2026. A imagem foi reconstruída com Docker Compose; `conect
 
 ## 15. Regressão
 
-`pnpm test`: 22/22 aprovado. `pnpm build`: aprovado. `pnpm lint`: aprovado com warning preexistente. `pnpm test:integration`: não executado por ausência de `TEST_DB_*`; 5 testes ignorados.
+`pnpm test`: 22/22 aprovado. `pnpm test:integration`: 5/5 aprovados em `conecta_test`, incluindo validação da identidade do banco/usuário e migrations. `pnpm build`: aprovado. `pnpm lint`: aprovado com 1 warning preexistente.
 
 ## 16. Alterações realizadas
 
@@ -72,11 +72,12 @@ Nenhuma alteração em Service, Repository, entidade de domínio, entidade ORM, 
 
 ## 17. Commits
 
-**a827522** - `feat(scheduling): stabilize HTTP response contract (refs #15)`.
+**a827522** - `feat(scheduling): stabilize HTTP response contract (refs #15)`.<br>
+**39ec40c** - `docs(material-11): register issue #15 traceability (refs #15)`.
 
 ## 18. Pull Request
 
-Não criado. Não há CLI GitHub disponível nesta sessão e não há Issue confirmada.
+**#22** — [feat(scheduling): stabilize HTTP response contract](https://github.com/ConectaProServices/conecta-pro-services/pull/22), aberto contra `main`, sem merge.
 
 ## 19. GitHub Project
 
@@ -102,23 +103,17 @@ Não atualizado por falta de acesso à CLI GitHub.
 | Compatibilidade analisada | Confirmado |
 | API containerizada reconstruída | Confirmado |
 | Requisição real no contêiner | Confirmado |
-| Regressão PostgreSQL | Pendente |
+| Regressão PostgreSQL | Confirmado (5/5) |
 | Alterações inspecionadas | Confirmado |
 | Segredos não versionados | Confirmado; `.env` não foi alterado |
 | Nenhum merge automático | Confirmado |
 
 ## 21. Pendências
 
-1. Disponibilizar Docker Desktop/daemon.
-2. Configurar `TEST_DB_*` em banco isolado.
-3. Executar `pnpm test:integration`.
-4. Reconstruir a imagem e testar `POST /schedulings`.
-5. Criar/atualizar PR sem merge.
+1. Acompanhar a revisão do PR #22.
+2. Corrigir futuramente o mapeamento HTTP da exceção RN05, conforme decisão da Issue responsável.
 
 ## 22. Próximas ações
 
-- Executar o ambiente Docker.
-- Repetir os cenários HTTP no contêiner.
-- Consultar o registro no PostgreSQL em modo somente leitura.
-- Atualizar os artefatos 11-05 e 11-07 com evidências reais.
-- Versionar os resultados e registrar o PR no fluxo real do GitHub.
+- Manter as evidências de teste e contêiner atualizadas na revisão do PR.
+- Não fazer merge até revisão e aprovação conforme o fluxo do projeto.
