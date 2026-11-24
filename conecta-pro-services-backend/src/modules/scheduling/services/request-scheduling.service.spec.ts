@@ -8,6 +8,8 @@ import { SchedulingStatus } from '../../../common/enum/scheduling-status.enum.js
 import { SchedulingTooSoonException } from '../../../common/exceptions/scheduling-too-soon.exception.js';
 import { SchedulingConflictException } from '../../../common/exceptions/scheduling-conflict.exception.js';
 import { CatalogServiceNotFoundException } from '../../../common/exceptions/catalog-service-not-found.exception.js';
+import { CustomerDailySchedulingLimitException } from '../../../common/exceptions/customer-daily-scheduling-limit.exception.js';
+import { SameParticipantSchedulingException } from '../../../common/exceptions/same-participant-scheduling.exception.js';
 
 const HOUR_IN_MS = 60 * 60 * 1000;
 const MINUTE_IN_MS = 60 * 1000;
@@ -16,11 +18,12 @@ const CUSTOMER_ID = '22222222-2222-4222-8222-222222222222';
 const SERVICE_ID = '33333333-3333-4333-8333-333333333333';
 const PROFESSIONAL_ID = '44444444-4444-4444-8444-444444444444';
 
-const buildInput = (hoursAhead: number) => ({
+const buildInput = (hoursAhead: number, overrides: Partial<{ customerId: string; professionalId: string }> = {}) => ({
     customerId: CUSTOMER_ID,
     serviceId: SERVICE_ID,
     professionalId: PROFESSIONAL_ID,
     startsAt: new Date(Date.now() + hoursAhead * HOUR_IN_MS),
+    ...overrides,
 });
 
 describe('SchedulingService.requestScheduling (UC01)', () => {
@@ -28,6 +31,7 @@ describe('SchedulingService.requestScheduling (UC01)', () => {
     let repository: {
         findScheduleById: ReturnType<typeof vi.fn>;
         existsOverlapping: ReturnType<typeof vi.fn>;
+        existsActiveForCustomerOnDate: ReturnType<typeof vi.fn>;
         save: ReturnType<typeof vi.fn>;
     };
     let catalog: { findById: ReturnType<typeof vi.fn> };
@@ -41,6 +45,7 @@ describe('SchedulingService.requestScheduling (UC01)', () => {
                     useValue: {
                         findScheduleById: vi.fn(),
                         existsOverlapping: vi.fn().mockResolvedValue(false),
+                        existsActiveForCustomerOnDate: vi.fn().mockResolvedValue(false),
                         save: vi.fn().mockImplementation(async (s: Scheduling) => s),
                     },
                 },
@@ -74,6 +79,23 @@ describe('SchedulingService.requestScheduling (UC01)', () => {
         expect(repository.save).not.toHaveBeenCalled();
     });
 
+    it('should throw SameParticipantSchedulingException when the customer is the professional (RN05)', async () => {
+        await expect(service.requestScheduling(buildInput(48, { professionalId: CUSTOMER_ID }))).rejects.toThrow(
+            SameParticipantSchedulingException,
+        );
+        expect(repository.existsActiveForCustomerOnDate).not.toHaveBeenCalled();
+        expect(repository.save).not.toHaveBeenCalled();
+    });
+
+    it('should throw CustomerDailySchedulingLimitException when the customer already has an active scheduling that date (RN03)', async () => {
+        repository.existsActiveForCustomerOnDate.mockResolvedValue(true);
+
+        await expect(service.requestScheduling(buildInput(48))).rejects.toThrow(CustomerDailySchedulingLimitException);
+        expect(repository.existsActiveForCustomerOnDate).toHaveBeenCalledWith(CUSTOMER_ID, expect.any(Date));
+        expect(repository.existsOverlapping).not.toHaveBeenCalled();
+        expect(repository.save).not.toHaveBeenCalled();
+    });
+
     it('should throw SchedulingConflictException when the professional has an overlapping scheduling (INV-1)', async () => {
         repository.existsOverlapping.mockResolvedValue(true);
 
@@ -87,6 +109,7 @@ describe('SchedulingService.requestScheduling (UC01)', () => {
 
         const response = await service.requestScheduling(input);
 
+        expect(repository.existsActiveForCustomerOnDate).toHaveBeenCalledWith(CUSTOMER_ID, input.startsAt);
         expect(repository.existsOverlapping).toHaveBeenCalledWith(PROFESSIONAL_ID, input.startsAt, expectedEndsAt);
         expect(repository.save).toHaveBeenCalledTimes(1);
         expect(repository.save.mock.calls[0][0]).toBeInstanceOf(Scheduling);
